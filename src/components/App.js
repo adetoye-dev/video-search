@@ -3,10 +3,14 @@ import SearchBar from "./SearchBar";
 import youtube from "../apis/youtube";
 
 class App extends React.Component {
+  onSearchSubmit = (searchTerm) => {
+    console.log(searchTerm);
+  };
+
   render() {
     return (
       <div className="ui container">
-        <SearchBar />
+        <SearchBar onSearchSubmit={this.onSearchSubmit} />
       </div>
     );
   }
