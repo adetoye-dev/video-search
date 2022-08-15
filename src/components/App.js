@@ -15,16 +15,24 @@ class App extends React.Component {
     });
     this.setState({
       videos: response.data.items,
-      selectedVideo: response.data.items[0],
     });
   };
 
-  componentDidMount() {
-    this.onSearchSubmit("music");
+  async componentDidMount() {
+    const response = await youtube.get("/search", {
+      params: {
+        q: "music",
+      },
+    });
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0],
+    });
   }
 
   onVideoSelect = (video) => {
     this.setState({ selectedVideo: video });
+    this.onSearchSubmit(video.snippet.description);
   };
 
   render() {
