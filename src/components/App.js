@@ -15,24 +15,25 @@ class App extends React.Component {
     });
     this.setState({
       videos: response.data.items,
+      selectedVideo: response.data.items[0],
     });
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.onSearchSubmit("phones");
+  }
+
+  onVideoSelect = async (video) => {
+    this.setState({ selectedVideo: video });
+    //search related videos on click
     const response = await youtube.get("/search", {
       params: {
-        q: "music",
+        q: video.snippet.description,
       },
     });
     this.setState({
       videos: response.data.items,
-      selectedVideo: response.data.items[0],
     });
-  }
-
-  onVideoSelect = (video) => {
-    this.setState({ selectedVideo: video });
-    this.onSearchSubmit(video.snippet.description);
   };
 
   render() {
